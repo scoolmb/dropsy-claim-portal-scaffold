@@ -1,0 +1,33 @@
+{
+  "merkleRoot": "e6234fc2ff8e43941db1561fbdb3f0cf72d30dbdd1f0e6ed5bf9841c206c461d",
+  "totalAddresses": 3,
+  "generatedAt": "2026-02-17T17:35:43.241Z",
+  "proofs": [
+    {
+      "index": 0,
+      "address": "6C3794oBuEoaML2YszM39H9TwQPK836hdmj6R8WEk8jW",
+      "amount": 100,
+      "proof": [
+        "c3ac795f4824804d207571da15c9a5af422dc60221fb9249d4f9b0102d2aeae0",
+        "c47d3878f06d6d9f53ebe77b3cc8e5eb5986f441155e44356645a89957ace087"
+      ]
+    },
+    {
+      "index": 1,
+      "address": "CdSFzuQbTYd9P959nsXadhcGQJVjjeDVQXVdyiQHY9Fz",
+      "amount": 250,
+      "proof": [
+        "e4df2908a783c8e0c7586a4e6033de989c2408a92e53e7862749e83417bfd6c8",
+        "c47d3878f06d6d9f53ebe77b3cc8e5eb5986f441155e44356645a89957ace087"
+      ]
+    },
+    {
+      "index": 2,
+      "address": "6TMmpVof9fGXak2VUgP4X9sXNfPHA7XWyi9ZMUCrHP6A",
+      "amount": 50,
+      "proof": [
+        "9317acf26f09a82b48c3c01a67e61eb71eb75969e63687a5acec4238b761ff2e"
+      ]
+    }
+  ]
+}
