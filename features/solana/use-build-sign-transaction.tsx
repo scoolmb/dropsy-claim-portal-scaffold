@@ -132,6 +132,7 @@ async function simulateTransaction({
     .send();
 
   if (value.err) {
+    console.log("Simulation logs:", value.logs);
     const parsed = parseAnchorError(value.logs ?? []);
 
     if (parsed) {
