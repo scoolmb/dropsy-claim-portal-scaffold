@@ -3,8 +3,12 @@ import { useSolana } from "../lib/context/solana-provider";
 import { AuthWalletGate } from "./auth-gate";
 import ClaimUi from "@/features/airdrop/claimUi";
 import { useCheckEligibility } from "@/features/airdrop/use-check-eligibility";
+import { Airdrop } from "@dropsy/airdrop";
+import { Account } from "@solana/kit";
 
-const ClaimCard = () => {
+const ClaimCard: React.FC<{
+  data: Account<Airdrop, string> | undefined;
+}> = ({ data }) => {
   const { selectedAccount } = useSolana();
   const { data: eligibilityResult, isLoading: eligibilityLoading } =
     useCheckEligibility(selectedAccount?.address);
@@ -64,7 +68,11 @@ const ClaimCard = () => {
                   </button>*/}
                 <AuthWalletGate>
                   {(account) => (
-                    <ClaimUi account={account} entry={eligibilityResult} />
+                    <ClaimUi
+                      account={account}
+                      entry={eligibilityResult}
+                      data={data}
+                    />
                   )}
                 </AuthWalletGate>
               </>

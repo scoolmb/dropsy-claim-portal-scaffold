@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useTransactionBuilder } from "../solana/use-build-sign-transaction";
 import { useSolana } from "@/lib/context/solana-provider";
 import { useWalletAccountTransactionSendingSigner } from "@solana/react";
-import { address } from "@solana/kit";
-import { ClaimAirdropAsyncInput } from "@dropsy/airdrop";
+import { Account, address } from "@solana/kit";
+import { Airdrop, ClaimAirdropAsyncInput } from "@dropsy/airdrop";
 import { getClaimProof } from "@/lib/helper/merkle";
 import {
   findAssociatedTokenPda,
@@ -16,9 +16,11 @@ import { toast } from "sonner";
 import { DROPSY_TREASURY_ADDRESS } from "@/lib/constants";
 
 const ClaimUi = ({
+  data: airdropData,
   account,
   entry,
 }: {
+  data: Account<Airdrop, string> | undefined;
   account: UiWalletAccount;
   entry: {
     address: string;
@@ -41,6 +43,7 @@ const ClaimUi = ({
   const BITMAP_ADDRESS = process.env.NEXT_PUBLIC_AIRDROP_BITMAP_ADDRESS;
 
   const onSubmit = async () => {
+    console.log("Claiming airdrop for entry:", airdropData?.data.master);
     if (
       !MINT_ADDRESS ||
       !AIRDROP_ADDRESS ||
@@ -67,6 +70,7 @@ const ClaimUi = ({
     });
     if (!proof) return;
     const data: ClaimAirdropAsyncInput = {
+      airdropId: airdropData ? airdropData.data.id : 1,
       sourceTokenAccount,
       mint: address(MINT_ADDRESS),
       treasury: address(AIRDROP_MASTER_TREASURY),

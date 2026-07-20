@@ -18,7 +18,7 @@ interface ClaimEntry {
 export default function Home() {
   const { selectedAccount, rpc } = useSolana();
   const airdropAddress = address(
-    "J9AxkrMXm41K3d5wabrt5NjRSgE1aVyJZY92HnYJv2gg",
+    "8Yhrnoy7Cn8khH5KAmNQ9B6GVdDzpJZggKHrb1VpF9YK",
   );
   const {
     data,
@@ -39,7 +39,7 @@ export default function Home() {
           </p>
         </div>
 
-        <ClaimCard />
+        <ClaimCard data={data} />
 
         {/* Stats Card 
         <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
