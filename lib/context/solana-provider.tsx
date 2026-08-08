@@ -11,9 +11,10 @@ import { StandardConnect } from "@wallet-standard/core";
 import { useWalletUi, WalletUiContextValue } from "@wallet-ui/react";
 
 // Create RPC connection
-const RPC_ENDPOINT = "https://api.devnet.solana.com";
-const WS_ENDPOINT = "wss://api.devnet.solana.com";
-const chain = "solana:devnet";
+const RPC_ENDPOINT =
+  "https://mainnet.helius-rpc.com/?api-key=29a530cd-b481-4122-861a-f0d5781d508b";
+const WS_ENDPOINT = "wss://api.mainnet-beta.solana.com";
+const chain = "solana:mainnet";
 const rpc = createSolanaRpc(RPC_ENDPOINT);
 const ws = createSolanaRpcSubscriptions(WS_ENDPOINT);
 

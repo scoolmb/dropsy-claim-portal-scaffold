@@ -13,78 +13,80 @@ const ClaimCard: React.FC<{
   const { data: eligibilityResult, isLoading: eligibilityLoading } =
     useCheckEligibility(selectedAccount?.address);
 
+  const hasWallet = !!selectedAccount;
+  const isEligible = !!eligibilityResult;
   return (
     <div className="space-y-6">
-      {!selectedAccount && (
-        <p className="text-sm text-center text-gray-500">
-          Please connect your wallet to check eligibility.
-        </p>
+      {!hasWallet && (
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 text-center">
+          <p className="text-gray-600">
+            Connect your wallet to check your eligibility.
+          </p>
+        </div>
       )}
-      {eligibilityLoading && (
-        <p className="text-sm text-gray-500">Checking eligibility...</p>
-      )}
-      {/* Results Display */}
-      <div
-        className={`mt-8 p-6 rounded-lg ${
-          eligibilityResult
-            ? "bg-green-50 border border-green-200"
-            : "bg-gray-50 border border-gray-200"
-        }`}
-      >
-        <div className="flex items-start gap-4">
-          <div
-            className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
-              eligibilityResult
-                ? "bg-green-100 text-green-600"
-                : "bg-gray-200 text-gray-600"
-            }`}
-          >
-            {eligibilityResult ? "✓" : "×"}
-          </div>
 
-          <div className="flex-1">
-            <h3
-              className={`text-lg font-semibold mb-2 ${
-                eligibilityResult ? "text-green-800" : "text-gray-800"
+      {hasWallet && eligibilityLoading && (
+        <div className="rounded-lg border border-blue-200 bg-blue-50 p-6 text-center">
+          <p className="text-blue-700">Checking eligibility...</p>
+        </div>
+      )}
+
+      {hasWallet && !eligibilityLoading && (
+        <div
+          className={`rounded-lg border p-6 ${
+            isEligible
+              ? "border-green-200 bg-green-50"
+              : "border-gray-200 bg-gray-50"
+          }`}
+        >
+          <div className="flex gap-4">
+            <div
+              className={`flex h-10 w-10 items-center justify-center rounded-full ${
+                isEligible
+                  ? "bg-green-100 text-green-600"
+                  : "bg-gray-200 text-gray-600"
               }`}
             >
-              {eligibilityResult
-                ? "Wallet is Eligible!"
-                : "Wallet is Not Eligible"}
-            </h3>
+              {isEligible ? "✓" : "×"}
+            </div>
 
-            {eligibilityResult ? (
-              <>
-                <p className="text-green-700 mb-2">
-                  Claimable Amount:{" "}
-                  <span className="font-bold text-xl">
-                    {eligibilityResult.amount} Tokens
-                  </span>
+            <div className="flex-1">
+              <h3
+                className={`text-lg font-semibold ${
+                  isEligible ? "text-green-800" : "text-gray-800"
+                }`}
+              >
+                {isEligible ? "Wallet is Eligible!" : "Wallet is Not Eligible"}
+              </h3>
+
+              {isEligible ? (
+                <>
+                  <p className="mt-2 text-green-700">
+                    Claimable Amount:
+                    <span className="ml-2 text-xl font-bold">
+                      {eligibilityResult.amount} Tokens
+                    </span>
+                  </p>
+
+                  <AuthWalletGate>
+                    {(account) => (
+                      <ClaimUi
+                        account={account}
+                        entry={eligibilityResult}
+                        data={data}
+                      />
+                    )}
+                  </AuthWalletGate>
+                </>
+              ) : (
+                <p className="mt-2 text-gray-600">
+                  This wallet is not eligible for the current airdrop.
                 </p>
-
-                {/* Claim Button 
-                  <button className="mt-4 px-6 py-3 bg-linear-to-r from-green-600 to-emerald-600 text-white font-medium rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all transform hover:scale-105">
-                    Claim {eligibilityResult.amount} Tokens
-                  </button>*/}
-                <AuthWalletGate>
-                  {(account) => (
-                    <ClaimUi
-                      account={account}
-                      entry={eligibilityResult}
-                      data={data}
-                    />
-                  )}
-                </AuthWalletGate>
-              </>
-            ) : (
-              <p className="text-gray-600">
-                This wallet address is not eligible for the current claim
-                period.
-              </p>
-            )}
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
